@@ -1,0 +1,13 @@
+command /fs [<number>]:
+	permission: flyspeed.admin
+	trigger:
+		if arg 1 is set:
+			set player's fly speed to arg 1
+			send "現在のFlySpeed %arg 1%"
+		if arg 1 is not set:
+			send "&b----- Fly Speed help -----"
+			send "/fs <number>"
+			send "初期値は多分0.1です"
+on right click on a beacon:
+	cancel event
+		

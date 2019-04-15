@@ -1,0 +1,37 @@
+﻿command /city set:
+	trigger:
+		if player is op:
+			set {city} to location
+			send "%{city}%"
+
+on join:
+    set slot 8 of player to diamond named "&f&lメニューを開く"
+
+on drop of diamond:
+	cancel event
+on offhand move:
+	name of held item contain "&f&lメニューを開く"
+	cancel event
+on inventory click:
+	if clicked item is stained glass pane named " ":
+		cancel event
+
+on inventory click:
+	if clicked item is diamond named "&f&lメニューを開く":
+		cancel event
+
+on click:
+	name of held item contain "&f&lメニューを開く":
+		open chest with 1 row named "&f&l総合メニュー" to player
+		loop 10 times:
+			set slot loop-number - 1 of player's current inventory to stained glass pane named " "
+			set slot 2 of current inventory of player to paper named "街ワールドへ" with lore "街ワールドへ"
+			set slot 1 of current inventory of player to diamond named "転移結晶" with lore "転移メニューを開きます"
+			set slot 3 of current inventory of player to name tag named "クリエイティブモード" with lore "クリエイティブモードに変更します"
+on inventory click:
+	if clicked item is paper named "街ワールドへ" with lore "街ワールドへ":
+		teleport the player to {city}
+on inventory click:
+	if clicked item is name tag named "クリエイティブモード" with lore "クリエイティブモードに変更します":
+		cancel event
+		set the player's gamemode to creative

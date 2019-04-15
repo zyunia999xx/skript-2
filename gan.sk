@@ -1,0 +1,155 @@
+﻿
+
+#ピストル
+
+on join:
+	{%player's uuid%.pistol} is not set:
+		set {%player's uuid%.pistol} to 10
+	{%player's uuid%.pistol2} is not set:
+		set {%player's uuid%.pistol2} to true
+	{%player's uuid%.scope} is not set:
+		set {%player's uuid%.scope} to false
+
+on rightclick with wood hoe:
+	name of player's tool contains "ピストル"
+	cancel event	
+	set action bar of player to "残り弾数 %{%player's uuid%.pistol}%"
+	{%player's uuid%.pistol} is more than 0
+	shoot an arrow from player at speed 2
+	add -1 to {%player's uuid%.pistol}
+on damage:
+	if name of attacker's tool is "ピストル":
+		cancel event	
+		damage victim by 1.5 hearts
+
+
+on leftclick with wood hoe:
+	name of player's tool contains "ピストル"
+	player has melon seeds
+	{%player's uuid%.pistol} is less than 10
+	repair player's tool
+	remove 1 melon seeds from player
+	wait 2 seconds
+	set {%player's uuid%.pistol} to 10
+	set action bar of player to "残り弾数 %{%player's uuid%.pistol}%"
+
+
+#ショットガン
+
+on join:
+	set {%player's uuid%.shotgun} to 10
+	{%player's uuid%.shotgun2} is not set:
+		set {%player's uuid%.shotgun2} to true
+
+on rightclick with wood hoe:
+	name of player's tool contains "ショットガン"
+	cancel event	
+	set action bar of player to "残り弾数 %{%player's uuid%.shotgun}%"
+	{%player's uuid%.shotgun} is more than 0
+	{%player's uuid%.shotgun2} is true
+	shoot an arrow from player at speed 1.5
+	add -1 to {%player's uuid%.shotgun}
+	set {%player's uuid%.shotgun2} to false
+	wait 30 tick
+	set {%player's uuid%.shotgun2} to true
+on damage:
+	if name of attacker's tool is "ショットガン":
+		cancel event	
+		damage victim by 7 hearts
+
+
+on leftclick with wood hoe:
+	name of player's tool contains "ショットガン"
+	player has melon seeds
+	{%player's uuid%.shotgun} is less than 10
+	repair player's tool
+	remove 1 melon seeds from player
+	wait 2 seconds
+	set {%player's uuid%.shotgun} to 10
+	set action bar of player to "残り弾数 %{%player's uuid%.shotgun}%"
+
+on offhand move:
+	if {%player's uuid%.scope} is false:
+		name of held item contain "&f&lAR-N"
+		equip player with pumpkin
+		wait 5 tick
+		set {%player's uuid%.scope} to true
+
+on offhand move:
+	if {%player's uuid%.scope} is true:
+		player is wearing an pumpkin:
+			equip player with air
+			wait 5 tick
+			set {%player's uuid%.scope} to false
+on offhand move:
+	cancel event
+
+
+
+on offhand move:
+	send "%{%player's uuid%.scope}%"
+
+#アサルトライフル
+command /rifle:
+	trigger:
+		player is op
+		give stone hoe named "&f&lAR-N" with lore "&fN社製のアサルトライフル。||||&f&l       <性能>||&7&l<&c&l威力&7&l> &c&l■■■■||&7&l<&c&l連射&7&l> &c&l■■■■■■||&7&l<&c&l弾数&7&l> &c&l■■■■" to player
+
+on join:
+	set {%player's uuid%.rifle} to 20
+	set {%player's uuid%.riflereload} to false
+
+on rightclick with stone hoe:
+	name of player's tool contains "&f&lAR-N"
+	cancel event	
+	set action bar of player to "<&7&l<   &f&l%{%player's uuid%.rifle}% &7&l/ &f&l20   &7&l>&f>"
+	{%player's uuid%.rifle} is more than 0
+	shoot an snowball from player at speed 4
+	play sound "ENTITY_ZOMBIE_ATTACK_DOOR_WOOD" to player with volume 0.3 and pitch -5
+	add -1 to {%player's uuid%.rifle}
+
+on damage:
+	attacker is player
+	if name of attacker's tool is "&f&lAR-N":    
+		set damage to 3
+	
+
+
+
+
+on leftclick with stone hoe:
+	{%player's uuid%.riflereload} is false
+	name of held item contains "&f&lAR-N"
+	if player has melon seeds:
+		{%player's uuid%.rifle} is less than 19
+		set {%player's uuid%.riflereload} to true
+		repair player's tool
+		remove 1 melon seeds from player
+		set action bar of player to "&7&lリロード中  &0&l〇〇〇"
+		wait 1 seconds
+		set action bar of player to "&7&lリロード中  &0&l●〇〇"
+		wait 1 seconds
+		set action bar of player to "&7&lリロード中  &0&l●●〇"
+		wait 1 seconds
+		set action bar of player to "&7&lリロード中  &0&l●●●"
+		wait 1 seconds
+		set {%player's uuid%.rifle} to 20
+		set action bar of player to "<&7&l<   &f&l%{%player's uuid%.rifle}% &7&l/ &f&l20   &7&l>&f>"
+		set {%player's uuid%.riflereload} to false
+	else:
+		set action bar of player to "<&7&l<   &c&l弾薬が足りません！   &7&l>&f>"
+on leftclick with stone hoe:
+	name of player's tool contains "&f&lAR-N"
+	if player has melon seeds:
+		{%player's uuid%.rifle} is less than 19
+		repair player's tool
+		play sound "BLOCK_IRON_DOOR_CLOSE" to player with volume 0.3 and pitch 1
+		wait 10 tick
+		play sound "BLOCK_WOODEN_DOOR_OPEN" to player with volume 1 and pitch 1
+		wait 10 tick
+		play sound "BLOCK_IRON_DOOR_OPEN" to player with volume 0.3 and pitch 1
+		wait 10 tick
+		play sound "BLOCK_IRON_DOOR_CLOSE" to player with volume 0.3 and pitch -3
+		wait 10 tick
+		play sound "BLOCK_IRON_DOOR_CLOSE" to player with volume 0.3 and pitch -2
+

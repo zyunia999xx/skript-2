@@ -1,0 +1,19 @@
+command /gm [<text>]:
+	permission: gm.admin
+	trigger:
+		if arg 1 is not set:
+			send "/gm [1 , 2 , 3]"
+			stop
+		if arg 1 is "0":
+			set the player's gamemode to survival
+			send "[Survival] ゲームモードを変更しました。"
+		if arg 1 is "1":
+			set the player's gamemode to creative
+			send "[Creative] ゲームモードを変更しました。"
+		if arg 1 is "2":
+			set the player's gamemode to adventure
+			send "[Adventure] ゲームモードを変更しました。"
+		if arg 1 is "3":
+			set the player's gamemode to spectator
+			send "[Spectator] ゲームモードを変更しました。"
+

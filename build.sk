@@ -1,0 +1,17 @@
+﻿
+
+
+
+on death:
+	victim is player
+	set {_random} to random integer from 1 to 99999999
+	create bossbar title "                                                                                   &c%attacker%  &7&l-->  &f%victim%" and id "%{_random}%" for players
+	wait 3 seconds
+	remove players bossbar "%{_random}%"
+
+on death:
+    if attacker is a player:
+        if projectile is set:
+            set the death message to "&c<dead> &f%victim% は &c%attacker%&f に殺された"
+        else:
+            set the death message to "&c<dead> &f%victim% は &c%attacker% &fに殺された"

@@ -1,0 +1,74 @@
+﻿command /tenni set <number> <text>:
+	trigger:
+		if arg 2 is not set:
+			send "正しくコマンド打とうね?"
+		if arg 1 is 1:
+			if arg 2 is set:
+				set {teleport1} to location
+				set {teleport.name1} to arg 2
+				send "転移先 %{teleport.name1}% を登録しました"
+		if arg 1 is 2:
+			if arg 2 is set:
+				set {teleport2} to location
+				set {teleport.name2} to arg 2
+				send "転移先 %{teleport.name2}% を登録しました"
+		if arg 1 is 3:
+			if arg 2 is set:
+				set {teleport3} to location
+				set {teleport.name3} to arg 2
+				send "転移先 %{teleport.name3}% を登録しました"
+		if arg 1 is 4:
+			if arg 2 is set:
+				set {teleport4} to location
+				set {teleport.name4} to arg 2
+				send "転移先 %{teleport.name4}% を登録しました"
+		if arg 1 is 5:
+			if arg 2 is set:
+				set {teleport5} to location
+				set {teleport.name5} to arg 2
+				send "転移先 %{teleport.name5}% を登録しました"
+on inventory click:
+	if clicked item is paper named "転移先1" with lore "転移先 : %{teleport.name1}%||転移先座標 : %{teleport1}%":
+		cancel event
+		teleport the player to {teleport1}
+on inventory click:
+	if clicked item is paper named "転移先2" with lore "転移先 : %{teleport.name2}%||転移先座標 : %{teleport2}%":
+		cancel event
+		teleport the player to {teleport2}
+on inventory click:
+	if clicked item is paper named "転移先3" with lore "転移先 : %{teleport.name3}%||転移先座標 : %{teleport3}%":
+		cancel event
+		teleport the player to {teleport3}
+on inventory click:
+	if clicked item is paper named "転移先4" with lore "転移先 : %{teleport.name4}%||転移先座標 : %{teleport4}%":
+		cancel event
+		teleport the player to {teleport4}
+on inventory click:
+	if clicked item is paper named "転移先5" with lore "転移先 : %{teleport.name5}%||転移先座標 : %{teleport5}%":
+		cancel event
+		teleport the player to {teleport5}
+
+
+		
+
+
+on inventory click:
+	if clicked item is diamond named "転移結晶" with lore "転移メニューを開きます":
+		open chest with 2 row named "&f&l転移先一覧" to player
+		loop 10 times:
+			set slot loop-number - 1 of player's current inventory to stained glass pane named " "
+			set slot 0 of current inventory of player to paper named "転移先1" with lore "転移先 : %{teleport.name1}%||転移先座標 : %{teleport1}%"
+			set slot 1 of current inventory of player to paper named "転移先2" with lore "転移先 : %{teleport.name2}%||転移先座標 : %{teleport2}%"
+			set slot 2 of current inventory of player to paper named "転移先3" with lore "転移先 : %{teleport.name3}%||転移先座標 : %{teleport3}%"
+			set slot 3 of current inventory of player to paper named "転移先4" with lore "転移先 : %{teleport.name4}%||転移先座標 : %{teleport4}%"
+			set slot 4 of current inventory of player to paper named "転移先5" with lore "転移先 : %{teleport.name5}%||転移先座標 : %{teleport5}%"
+
+on inventory click:
+	if clicked item is paper named "転移先1" with lore "転移先 : %{teleport.name1}%||転移先座標 : %{teleport1}%":
+		cancel event
+		teleport the player to {teleport1}
+
+
+on explosion:
+	cancel event
+

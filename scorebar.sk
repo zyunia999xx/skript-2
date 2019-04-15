@@ -1,0 +1,61 @@
+﻿on join:
+	while player is online:
+		wipe player's sidebar
+		set name of sidebar of player to "&0&l&nNNN&4&l&nCity&0&l&nServer"
+		set score "なんもねーよ" in sidebar of player to 5
+
+		wait 1 second
+
+
+
+
+
+options:
+#--------------------------------------------------------#
+
+
+
+
+
+#       ここを変更するだけで変更できる
+
+    #   ?注意事項?
+    
+    # えーと　『　:    』  の後には絶対空白一つ入れてね?
+    #じゃないとエラー出るぞ！
+    
+    
+    
+    
+	top: &4&n_______  &0&l&nNNN&4&l&nCity&0&l&nServer  &4&n_______
+	
+	
+	
+	
+	under: &f&l>> &8&lGAME_TIME&f&l <<%nl%&f&l%time%%nl%&f&l>>&8&lREAL_TIME&f&l <<%nl%&f&l%now%%nl%&4&n____________________________
+
+
+
+
+
+#--------------------------------------------------------#
+
+
+
+
+
+
+
+
+
+
+
+
+
+#=------------------------------------ここから先は変える必要ないぞー------------------------------------=#
+on join:
+	while player is online:
+		wait 1 second
+		set tab header to "{@top}" and footer to "{@under}" for player
+		if {%player's uuid%.tab} is true:
+			set the player's tablist name to "%{%player's uuid%.tab_name}%"
